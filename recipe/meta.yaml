@@ -17,7 +17,7 @@ build:
   skip: true  # [py2k]
 
 requirements:
-  build:
+  host:
     - python
     - setuptools
   run:
@@ -37,10 +37,12 @@ about:
   home: https://github.com/aio-libs/aiohttp
   license: Apache 2.0
   license_file: LICENSE.txt
+  license_family: Apache
   summary: 'Async http client/server framework (asyncio)'
 
   doc_url: http://aiohttp.readthedocs.io/
   dev_url: https://github.com/aio-libs/aiohttp
+  doc_source_url: https://github.com/aio-libs/aiohttp/tree/master/docs
 
 extra:
   recipe-maintainers:
