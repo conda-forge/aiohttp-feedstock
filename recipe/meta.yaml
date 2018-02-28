@@ -36,7 +36,7 @@ test:
 about:
   home: https://github.com/aio-libs/aiohttp
   license: Apache 2.0
-  license_file: LICENSE.tx
+  license_file: LICENSE.txt
   summary: 'Async http client/server framework (asyncio)'
 
   doc_url: http://aiohttp.readthedocs.io/
