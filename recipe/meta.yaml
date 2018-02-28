@@ -1,6 +1,6 @@
 {% set name = "aiohttp" %}
-{% set version = "2.0.7" %}
-{% set sha256 = "76bfd47ee7fbda115cff486c3944fcb237ecbf6195bf2943fae74052fb40c4fe" %}
+{% set version = "3.0.2" %}
+{% set sha256 = "65c885062805fc2bf223806cf19ebb2e6884abdbdc882eb85746e538cc778bdb" %}
 
 package:
   name: {{ name|lower }}
@@ -22,10 +22,12 @@ requirements:
     - setuptools
   run:
     - python
-    - chardet
-    - multidict >=2.1.4
-    - async-timeout >=1.2.0
-    - yarl >=0.10.0,<0.11
+    - attrs >=17.4.0
+    - chardet >=2.0,<4.0
+    - multidict >=4.0,<5.0
+    - async-timeout >=1.2,<3.0
+    - yarl >=1.0,<2.0
+    - idna_ssl >=1,<2  # [py35 or py36]
 
 test:
   imports:
