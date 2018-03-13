@@ -20,6 +20,8 @@ requirements:
   host:
     - python
     - setuptools
+  build:
+    - {{ compiler('c') }}
   run:
     - python
     - attrs >=17.3.0
