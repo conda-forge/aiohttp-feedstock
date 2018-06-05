@@ -14,14 +14,16 @@ Summary: Async http client/server framework (asyncio)
 Current build status
 ====================
 
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/aiohttp-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/aiohttp-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/aiohttp-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/aiohttp-feedstock)
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/aiohttp-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/aiohttp-feedstock/branch/master)
+[![Linux](https://img.shields.io/circleci/project/github/conda-forge/aiohttp-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/aiohttp-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/aiohttp-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/aiohttp-feedstock)
+[![Windows](https://img.shields.io/appveyor/ci/conda-forge/aiohttp-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/aiohttp-feedstock/branch/master)
 
 Current release info
 ====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/aiohttp/badges/version.svg)](https://anaconda.org/conda-forge/aiohttp)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/aiohttp/badges/downloads.svg)](https://anaconda.org/conda-forge/aiohttp)
+
+| Name | Downloads | Version | Platforms |
+| --- | --- | --- | --- |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-aiohttp-green.svg)](https://anaconda.org/conda-forge/aiohttp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/aiohttp.svg)](https://anaconda.org/conda-forge/aiohttp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/aiohttp.svg)](https://anaconda.org/conda-forge/aiohttp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/aiohttp.svg)](https://anaconda.org/conda-forge/aiohttp) |
 
 Installing aiohttp
 ==================
