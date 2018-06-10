@@ -1,6 +1,6 @@
 {% set name = "aiohttp" %}
-{% set version = "3.3.0" %}
-{% set sha256 = "3128d3ef7b575dbb272cdacd4d4c9a7cf67b18899e96260d55ae3a5782d886e7" %}
+{% set version = "3.3.1" %}
+{% set sha256 = "16ac24a3278375d277dacf992ac07084865c3aad3e625fc5be693c4b7e7f550d" %}
 
 package:
   name: {{ name|lower }}
@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 0
   script: python setup.py install --single-version-externally-managed --record record.txt
   skip: true  # [py2k]
 
