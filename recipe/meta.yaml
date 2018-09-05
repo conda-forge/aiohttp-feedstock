@@ -1,6 +1,6 @@
 {% set name = "aiohttp" %}
-{% set version = "3.4.2" %}
-{% set sha256 = "74dc560e074a8a56ef3722bd87fc06acc38eaccba6b35afc39345782eeb41a42" %}
+{% set version = "3.4.3" %}
+{% set sha256 = "ab53f89c3b027a9c95f02bb57e96292ed87c8bcf7e5441720ead621c8a53096c" %}
 
 package:
   name: {{ name|lower }}
