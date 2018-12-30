@@ -31,7 +31,7 @@ requirements:
     - async-timeout >=3.0,<4.0
     - yarl >=1.0,<2.0
     - idna_ssl >=1,<2  # [py<37]
-    - typing_extensions >=3.6.5  # [py<37]
+    - typing-extensions >=3.6.5  # [py<37]
 
 test:
   imports:
