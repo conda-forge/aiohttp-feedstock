@@ -1,6 +1,5 @@
 {% set name = "aiohttp" %}
 {% set version = "3.5.2" %}
-{% set sha256 = "3d851b15e615c0ad619de0990ab94c9721c335aebb58d160bf77a4af963c6b50" %}
 
 package:
   name: {{ name|lower }}
@@ -9,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 3d851b15e615c0ad619de0990ab94c9721c335aebb58d160bf77a4af963c6b50
 
 build:
   number: 1000
@@ -30,7 +29,8 @@ requirements:
     - multidict >=4.0,<5.0
     - async-timeout >=3.0,<4.0
     - yarl >=1.0,<2.0
-    - idna_ssl >=1,<2  # [py<=36]
+    - idna_ssl >=1,<2  # [py<37]
+    - typing_extensions >=3.6.5  # [py<37]
 
 test:
   imports:
