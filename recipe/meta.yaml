@@ -1,6 +1,6 @@
 {% set name = "aiohttp" %}
-{% set version = "3.4.4" %}
-{% set sha256 = "51afec6ffa50a9da4cdef188971a802beb1ca8e8edb40fa429e5e529db3475fa" %}
+{% set version = "3.5.0" %}
+{% set sha256 = "1d00d58cf2665ce61bd637790988accca609aa3a898bb45747b6369830c0de28" %}
 
 package:
   name: {{ name|lower }}
@@ -30,7 +30,8 @@ requirements:
     - multidict >=4.0,<5.0
     - async-timeout >=3.0,<4.0
     - yarl >=1.0,<2.0
-    - idna_ssl >=1,<2  # [py<=36]
+    - idna_ssl >=1,<2  # [py<37]
+    - typing_extensions >=3.6.5  # [py<37]
 
 test:
   imports:
