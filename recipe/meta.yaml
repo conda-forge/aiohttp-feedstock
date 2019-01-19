@@ -1,6 +1,6 @@
 {% set name = "aiohttp" %}
-{% set version = "3.5.0" %}
-{% set sha256 = "1d00d58cf2665ce61bd637790988accca609aa3a898bb45747b6369830c0de28" %}
+{% set version = "3.5.4" %}
+{% set sha256 = "9c4c83f4fa1938377da32bc2d59379025ceeee8e24b89f72fcbccd8ca22dc9bf" %}
 
 package:
   name: {{ name|lower }}
@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1000
+  number: 0
   script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
   skip: true  # [py2k]
 
