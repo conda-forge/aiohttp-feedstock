@@ -1,5 +1,5 @@
 {% set name = "aiohttp" %}
-{% set version = "3.6.0" %}
+{% set version = "3.6.1" %}
 
 package:
   name: {{ name|lower }}
@@ -8,7 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: af7809ce7de6709afc7770403a70dfdbc4e988c91451108c8e123fac46b870d9
+  sha256: fc55b1fec0e4cc1134ffb09ea3970783ee2906dc5dfd7cd16917913f2cfed65b
 
 build:
   number: 0
@@ -26,7 +26,7 @@ requirements:
     - python
     - attrs >=17.3.0
     - chardet >=2.0,<4.0
-    - multidict >=4.0,<5.0
+    - multidict >=4.5,<5.0
     - async-timeout >=3.0,<4.0
     - yarl >=1.0,<2.0
     - idna_ssl >=1,<2  # [py<37]
