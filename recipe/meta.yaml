@@ -1,5 +1,5 @@
 {% set name = "aiohttp" %}
-{% set version = "3.6.2" %}
+{% set version = "3.6.3" %}
 
 package:
   name: {{ name|lower }}
@@ -8,11 +8,11 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 259ab809ff0727d0e834ac5e8a283dc5e3e0ecc30c4d80b3cd17a4139ce1f326
+  sha256: 698cd7bc3c7d1b82bb728bae835724a486a8c376647aec336aa21a60113c3645
 
 build:
-  number: 1
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+  number: 0
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
   skip: true  # [py2k]
 
 requirements:
@@ -41,7 +41,7 @@ about:
   license: Apache 2.0
   license_file: LICENSE.txt
   license_family: Apache
-  summary: 'Async http client/server framework (asyncio)'
+  summary: Async http client/server framework (asyncio)
 
   doc_url: http://aiohttp.readthedocs.io/
   dev_url: https://github.com/aio-libs/aiohttp
@@ -50,3 +50,4 @@ about:
 extra:
   recipe-maintainers:
     - sodre
+    - xhochy
