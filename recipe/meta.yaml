@@ -6,13 +6,12 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 698cd7bc3c7d1b82bb728bae835724a486a8c376647aec336aa21a60113c3645
 
 build:
-  number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  number: 1
+  script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [py2k]
 
 requirements:
@@ -24,21 +23,25 @@ requirements:
     - cython
   run:
     - python
+    - async-timeout <4.0,>=3.0
     - attrs >=17.3.0
     - chardet >=2.0,<4.0
+    - idna_ssl >=1.0  # [py<37]
     - multidict >=4.5,<5.0
-    - async-timeout >=3.0,<4.0
-    - yarl >=1.0,<2.0
-    - idna_ssl >=1,<2  # [py<37]
-    - typing_extensions >=3.6.5  # [py<37]
+    - typing-extensions >=3.6.5  # [py<37]
+    - yarl >=1.0,<1.6.0
 
 test:
   imports:
     - aiohttp
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://github.com/aio-libs/aiohttp
-  license: Apache 2.0
+  license: Apache-2.0
   license_file: LICENSE.txt
   license_family: Apache
   summary: Async http client/server framework (asyncio)
@@ -51,3 +54,4 @@ extra:
   recipe-maintainers:
     - sodre
     - xhochy
+    - ocefpaf
