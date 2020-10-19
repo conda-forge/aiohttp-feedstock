@@ -3,7 +3,7 @@ About aiohttp
 
 Home: https://github.com/aio-libs/aiohttp
 
-Package license: Apache 2.0
+Package license: Apache-2.0
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/aiohttp-feedstock/blob/master/LICENSE.txt)
 
@@ -214,6 +214,7 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@ocefpaf](https://github.com/ocefpaf/)
 * [@sodre](https://github.com/sodre/)
 * [@xhochy](https://github.com/xhochy/)
 
