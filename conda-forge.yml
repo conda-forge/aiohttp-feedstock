@@ -7,6 +7,6 @@ linux_ppc64le:
 provider: 
   win: azure
   linux_aarch64: default
-  linux_ppc64le: default
+  linux_ppc64le: azure
 test_on_native_only: true
 
