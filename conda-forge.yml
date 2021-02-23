@@ -1,12 +1,6 @@
 build_platform: {osx_arm64: osx_64}
 conda_forge_output_validation: true
-linux_aarch64:
-  enabled: true
-linux_ppc64le:
-  enabled: true
-provider: 
-  win: azure
-  linux_aarch64: default
-  linux_ppc64le: azure
+linux_aarch64: {enabled: true}
+linux_ppc64le: {enabled: true}
+provider: {linux_aarch64: default, linux_ppc64le: azure, win: azure}
 test_on_native_only: true
-
