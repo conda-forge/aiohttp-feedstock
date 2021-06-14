@@ -1,5 +1,5 @@
 {% set name = "aiohttp" %}
-{% set version = "3.7.4" %}
+{% set version = "3.7.4.post0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,9 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 5d84ecc73141d0a0d61ece0742bb7ff5751b0657dab8405f899d3ceb104cc7de
-  patches:
-    - pr5333.patch  # allows chardet 4.0
+  sha256: 493d3299ebe5f5a7c66b9819eacdcfbbaaf1a8e84911ddffcdc48888497afecf
 
 build:
   number: 0
