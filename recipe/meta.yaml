@@ -27,7 +27,7 @@ requirements:
   run:
     - python
     - charset-normalizer >=2.0,<3
-    - asynctest 0.13.0 # [py<38]
+    - asynctest 0.13.0  # [py<38]
     - frozenlist >=1.1.1
     - aiosignal >=1.1.2
     - async-timeout >=4.0.0a3,<5
