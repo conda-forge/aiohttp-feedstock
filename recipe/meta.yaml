@@ -1,5 +1,5 @@
 {% set name = "aiohttp" %}
-{% set version = "3.7.4.post0" %}
+{% set version = "3.8.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 493d3299ebe5f5a7c66b9819eacdcfbbaaf1a8e84911ddffcdc48888497afecf
+  sha256: d3b19d8d183bcfd68b25beebab8dc3308282fe2ca3d6ea3cb4cd101b3c279f8d
 
 build:
-  number: 1
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv
-  skip: true  # [py2k]
 
 requirements:
   build:
@@ -26,12 +25,15 @@ requirements:
     - cython
   run:
     - python
-    - async-timeout >=3.0,<4.0
+    - aiosignal >=1.1.2
+    - async-timeout <5.0,>=4.0.0a3
+    - asynctest ==0.13.0  # [py<38]
     - attrs >=17.3.0
-    - chardet >=2.0,<5.0
+    - charset-normalizer >=2.0,<3.0
+    - frozenlist >=1.1.1
     - idna_ssl >=1.0  # [py<37]
     - multidict >=4.5,<7.0
-    - typing-extensions >=3.6.5
+    - typing-extensions >=3.7.4  # [py<38]
     - yarl >=1.0,<2.0
 
 test:
