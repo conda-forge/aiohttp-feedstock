@@ -4,10 +4,13 @@ linux_aarch64:
   enabled: true
 linux_ppc64le:
   enabled: true
-provider: 
+provider:
   win: azure
   linux_aarch64: default
   linux_ppc64le: azure
 test_on_native_only: true
 bot:
   run_deps_from_wheel: true
+github:
+  branch_name: main
+  tooling_branch_name: main
