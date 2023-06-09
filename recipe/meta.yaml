@@ -31,7 +31,6 @@ requirements:
     - attrs >=17.3.0
     - charset-normalizer >=2.0,<4.0
     - frozenlist >=1.1.1
-    - idna_ssl >=1.0  # [py<37]
     - multidict >=4.5,<7.0
     - typing-extensions >=3.7.4  # [py<38]
     - yarl >=1.0,<2.0
