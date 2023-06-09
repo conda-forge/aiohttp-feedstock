@@ -10,7 +10,7 @@ source:
   sha256: bf2e1a9162c1e441bf805a1fd166e249d574ca04e03b34f97e2928769e91ab5c
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -29,7 +29,7 @@ requirements:
     - async-timeout <5.0,>=4.0.0a3
     - asynctest ==0.13.0  # [py<38]
     - attrs >=17.3.0
-    - charset-normalizer >=2.0,<3.0
+    - charset-normalizer >=2.0,<4.0
     - frozenlist >=1.1.1
     - idna_ssl >=1.0  # [py<37]
     - multidict >=4.5,<7.0
