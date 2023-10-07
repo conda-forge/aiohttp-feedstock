@@ -1,5 +1,6 @@
 bot:
-  run_deps_from_wheel: true
+  inspect: update-grayskull
+  automerge: true
 build_platform:
   linux_aarch64: linux_64
   osx_arm64: osx_64
@@ -15,6 +16,6 @@ provider:
   linux_aarch64: default
   linux_ppc64le: azure
   win: azure
-test_on_native_only: true
+test: emulated
 conda_build:
   pkg_format: '2'
