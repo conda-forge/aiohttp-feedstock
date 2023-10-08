@@ -1,12 +1,11 @@
-{% set name = "aiohttp" %}
 {% set version = "3.8.6" %}
 
 package:
-  name: {{ name|lower }}
+  name: aiohttp
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
   sha256: b0cf2a4501bff9330a8a5248b4ce951851e415bdcce9dc158e76cfd55e15085c
 
 build:
@@ -27,13 +26,10 @@ requirements:
     - python
     - aiosignal >=1.1.2
     - async-timeout <5.0,>=4.0.0a3
-    - asynctest ==0.13.0  # [py<38]
     - attrs >=17.3.0
     - charset-normalizer >=2.0,<4.0
     - frozenlist >=1.1.1
-    - idna_ssl >=1.0  # [py<37]
     - multidict >=4.5,<7.0
-    - typing-extensions >=3.7.4  # [py<38]
     - yarl >=1.0,<2.0
 
 test:
