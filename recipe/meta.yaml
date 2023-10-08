@@ -45,6 +45,7 @@ test:
     - brotli
     - brotlicffi
     - freezegun
+    - gunicorn    # [unix]
     - proxy-py
     - re-assert
     - trustme
@@ -59,7 +60,28 @@ test:
     # don't want the docker tests in the autobahn subfolder
     - rm -rf sources/tests/autobahn         # [unix]
     - rmdir /s /q sources\tests\autobahn    # [win]
-    - pytest sources/tests/
+    {% set tests_to_skip = "_not_a_real_test" %}
+    {% set tests_to_skip = tests_to_skip + " or test_feed_eof_no_err_brotli" %}
+    {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_c[pyloop]" %}
+    {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_py[pyloop]" %}
+    {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_strict_headers[c-parser-pyloop]" %}
+    {% set tests_to_skip = tests_to_skip + " or test_request_tracing_url_params[pyloop]" %}
+    {% set tests_to_skip = tests_to_skip + " or test_tcp_connector_raise_connector_ssl_error[pyloop]" %}
+    # test failing with python >=3.11
+    {% set tests_to_skip = tests_to_skip + " or test_https_proxy_unsupported_tls_in_tls[pyloop-https]" %}   # [py>=311]
+    # aio seems to hard-code expectation for cpython (i.e. not "pypy3.9" in SP_DIR path)
+    {% set tests_to_skip = tests_to_skip + " or test_static_route_user_home" %}             # [python_impl == "pypy"]
+    # not working with pypy (all platforms)
+    {% set tests_to_skip = tests_to_skip + " or test_c_parser_loaded" %}                    # [python_impl == "pypy"]
+    {% set tests_to_skip = tests_to_skip + " or test_invalid_character[pyloop]" %}          # [python_impl == "pypy"]
+    {% set tests_to_skip = tests_to_skip + " or test_invalid_linebreak[pyloop]" %}          # [python_impl == "pypy"]
+    # not working with pypy (win)
+    {% set tests_to_skip = tests_to_skip + " or test_access_to_the_file_with_spaces" %}     # [python_impl == "pypy" and win]
+    {% set tests_to_skip = tests_to_skip + " or test_follow_symlink[pyloop]" %}             # [python_impl == "pypy" and win]
+    {% set tests_to_skip = tests_to_skip + " or test_static_file_huge[pyloop] " %}          # [python_impl == "pypy" and win]
+    {% set tests_to_skip = tests_to_skip + " or test_subapp_reverse_static_url[pyloop]" %}  # [python_impl == "pypy" and win]
+    {% set tests_to_skip = tests_to_skip + " or test_unsupported_upgrade[pyloop] " %}       # [python_impl == "pypy" and win]
+    - pytest sources/tests/ -k "not ({{ tests_to_skip }})"
 
 about:
   home: https://github.com/aio-libs/aiohttp
