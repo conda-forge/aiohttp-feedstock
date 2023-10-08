@@ -5,8 +5,13 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
-  sha256: b0cf2a4501bff9330a8a5248b4ce951851e415bdcce9dc158e76cfd55e15085c
+  - url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
+    sha256: b0cf2a4501bff9330a8a5248b4ce951851e415bdcce9dc158e76cfd55e15085c
+  # download sources to have tests, which don't get installed;
+  # installing from source is very painful, beware...
+  - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
+    sha256: f437a7a676ee59f933a3592e3777690110bc570b38f702192bf349805382c22d
+    folder: sources
 
 build:
   number: 1
@@ -33,12 +38,28 @@ requirements:
     - yarl >=1.0,<2.0
 
 test:
+  requires:
+    - pip
+    - pytest
+    - pytest-mock
+    - brotli
+    - brotlicffi
+    - freezegun
+    - proxy-py
+    - re-assert
+    - trustme
+  source_files:
+    - sources/tests
+    # used by a test
+    - sources/README.rst
   imports:
     - aiohttp
   commands:
     - pip check
-  requires:
-    - pip
+    # don't want the docker tests in the autobahn subfolder
+    - rm -rf sources/tests/autobahn         # [unix]
+    - rmdir /s /q sources\tests\autobahn    # [win]
+    - pytest sources/tests/
 
 about:
   home: https://github.com/aio-libs/aiohttp
