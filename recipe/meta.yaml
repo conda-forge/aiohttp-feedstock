@@ -1,4 +1,4 @@
-{% set version = "3.8.6" %}
+{% set version = "3.9.0b0" %}
 
 package:
   name: aiohttp
@@ -6,15 +6,15 @@ package:
 
 source:
   - url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
-    sha256: b0cf2a4501bff9330a8a5248b4ce951851e415bdcce9dc158e76cfd55e15085c
+    sha256: cecc64fd7bae6debdf43437e3c83183c40d4f4d86486946f412c113960598eee
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: f437a7a676ee59f933a3592e3777690110bc570b38f702192bf349805382c22d
+    sha256: 8a01be9ea85f2b9d101080246c4f4e82b2df4b9ec04afd8d9f546bf47f40d850
     folder: sources
 
 build:
-  number: 1
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -30,9 +30,8 @@ requirements:
   run:
     - python
     - aiosignal >=1.1.2
-    - async-timeout <5.0,>=4.0.0a3
+    - async-timeout >=4.0,<5.0  # [py<311]
     - attrs >=17.3.0
-    - charset-normalizer >=2.0,<4.0
     - frozenlist >=1.1.1
     - multidict >=4.5,<7.0
     - yarl >=1.0,<2.0
