@@ -1,16 +1,20 @@
-{% set name = "aiohttp" %}
 {% set version = "3.8.6" %}
 
 package:
-  name: {{ name|lower }}
+  name: aiohttp
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b0cf2a4501bff9330a8a5248b4ce951851e415bdcce9dc158e76cfd55e15085c
+  - url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
+    sha256: b0cf2a4501bff9330a8a5248b4ce951851e415bdcce9dc158e76cfd55e15085c
+  # download sources to have tests, which don't get installed;
+  # installing from source is very painful, beware...
+  - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
+    sha256: f437a7a676ee59f933a3592e3777690110bc570b38f702192bf349805382c22d
+    folder: sources
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
@@ -27,22 +31,57 @@ requirements:
     - python
     - aiosignal >=1.1.2
     - async-timeout <5.0,>=4.0.0a3
-    - asynctest ==0.13.0  # [py<38]
     - attrs >=17.3.0
     - charset-normalizer >=2.0,<4.0
     - frozenlist >=1.1.1
-    - idna_ssl >=1.0  # [py<37]
     - multidict >=4.5,<7.0
-    - typing-extensions >=3.7.4  # [py<38]
     - yarl >=1.0,<2.0
 
 test:
+  requires:
+    - pip
+    - pytest
+    - pytest-mock
+    - brotli
+    - brotlicffi
+    - freezegun
+    - gunicorn    # [unix]
+    - proxy-py
+    - re-assert
+    - trustme
+  source_files:
+    - sources/tests
+    # used by a test
+    - sources/README.rst
   imports:
     - aiohttp
   commands:
     - pip check
-  requires:
-    - pip
+    # don't want the docker tests in the autobahn subfolder
+    - rm -rf sources/tests/autobahn         # [unix]
+    - rmdir /s /q sources\tests\autobahn    # [win]
+    {% set tests_to_skip = "_not_a_real_test" %}
+    {% set tests_to_skip = tests_to_skip + " or test_feed_eof_no_err_brotli" %}
+    {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_c[pyloop]" %}
+    {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_py[pyloop]" %}
+    {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_strict_headers[c-parser-pyloop]" %}
+    {% set tests_to_skip = tests_to_skip + " or test_request_tracing_url_params[pyloop]" %}
+    {% set tests_to_skip = tests_to_skip + " or test_tcp_connector_raise_connector_ssl_error[pyloop]" %}
+    # test failing with python >=3.11
+    {% set tests_to_skip = tests_to_skip + " or test_https_proxy_unsupported_tls_in_tls[pyloop-https]" %}   # [py>=311]
+    # aio seems to hard-code expectation for cpython (i.e. not "pypy3.9" in SP_DIR path)
+    {% set tests_to_skip = tests_to_skip + " or test_static_route_user_home" %}             # [python_impl == "pypy"]
+    # not working with pypy (all platforms)
+    {% set tests_to_skip = tests_to_skip + " or test_c_parser_loaded" %}                    # [python_impl == "pypy"]
+    {% set tests_to_skip = tests_to_skip + " or test_invalid_character[pyloop]" %}          # [python_impl == "pypy"]
+    {% set tests_to_skip = tests_to_skip + " or test_invalid_linebreak[pyloop]" %}          # [python_impl == "pypy"]
+    # not working with pypy (win)
+    {% set tests_to_skip = tests_to_skip + " or test_access_to_the_file_with_spaces" %}     # [python_impl == "pypy" and win]
+    {% set tests_to_skip = tests_to_skip + " or test_follow_symlink[pyloop]" %}             # [python_impl == "pypy" and win]
+    {% set tests_to_skip = tests_to_skip + " or test_static_file_huge[pyloop] " %}          # [python_impl == "pypy" and win]
+    {% set tests_to_skip = tests_to_skip + " or test_subapp_reverse_static_url[pyloop]" %}  # [python_impl == "pypy" and win]
+    {% set tests_to_skip = tests_to_skip + " or test_unsupported_upgrade[pyloop] " %}       # [python_impl == "pypy" and win]
+    - pytest sources/tests/ -k "not ({{ tests_to_skip }})"
 
 about:
   home: https://github.com/aio-libs/aiohttp
