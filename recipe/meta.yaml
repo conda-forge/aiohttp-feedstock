@@ -60,14 +60,17 @@ test:
     - rm -rf sources/tests/autobahn         # [unix]
     - rmdir /s /q sources\tests\autobahn    # [win]
     {% set tests_to_skip = "_not_a_real_test" %}
-    {% set tests_to_skip = tests_to_skip + " or test_feed_eof_no_err_brotli" %}
     {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_c[pyloop]" %}
     {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_py[pyloop]" %}
     {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_strict_headers[c-parser-pyloop]" %}
-    {% set tests_to_skip = tests_to_skip + " or test_request_tracing_url_params[pyloop]" %}
     {% set tests_to_skip = tests_to_skip + " or test_tcp_connector_raise_connector_ssl_error[pyloop]" %}
     # test failing with python >=3.11
     {% set tests_to_skip = tests_to_skip + " or test_https_proxy_unsupported_tls_in_tls[pyloop-https]" %}   # [py>=311]
+    # fails to open socket at desired IP/port
+    {% set tests_to_skip = tests_to_skip + " or (test_web_server and test_handler_cancellation)" %}         # [linux]
+    {% set tests_to_skip = tests_to_skip + " or (test_web_server and test_no_handler_cancellation)" %}      # [linux]
+    # emulation is too slow for expected speed
+    {% set tests_to_skip = tests_to_skip + " or (test_imports and test_import_time)" %}                     # [aarch64 or ppc64le]
     # aio seems to hard-code expectation for cpython (i.e. not "pypy3.9" in SP_DIR path)
     {% set tests_to_skip = tests_to_skip + " or test_static_route_user_home" %}             # [python_impl == "pypy"]
     # not working with pypy (all platforms)
