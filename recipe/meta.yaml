@@ -71,6 +71,7 @@ test:
     # fails to open socket at desired IP/port
     {% set tests_to_skip = tests_to_skip + " or (test_web_server and test_handler_cancellation)" %}         # [linux]
     {% set tests_to_skip = tests_to_skip + " or (test_web_server and test_no_handler_cancellation)" %}      # [linux]
+    {% set tests_to_skip = tests_to_skip + " or test_run_app_preexisting_inet6_socket[pyloop]" %}           # [linux]
     # emulation is too slow for expected speed
     {% set tests_to_skip = tests_to_skip + " or (test_imports and test_import_time)" %}                     # [aarch64 or ppc64le]
     # aio seems to hard-code expectation for cpython (i.e. not "pypy3.9" in SP_DIR path)
