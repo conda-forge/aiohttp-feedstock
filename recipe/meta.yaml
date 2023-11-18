@@ -17,10 +17,6 @@ source:
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . -vv
-  # 3.9.0b0 is the only 3.12-capable release, has some upstream testing
-  # and the results of our test suite look good, so unblock migration;
-  # for the other python versions, remove this as soon as there's 3.9.0 GA.
-  skip: true  # [py<312]
 
 requirements:
   build:
