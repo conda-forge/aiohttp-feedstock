@@ -48,7 +48,7 @@ test:
     - gunicorn    # [unix]
     - proxy-py
     - re-assert
-    - time-machine
+    - time-machine  # [python_impl == "cpython"]
     - trustme
   source_files:
     - sources/tests
