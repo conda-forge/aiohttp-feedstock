@@ -48,6 +48,7 @@ test:
     - gunicorn    # [unix]
     - proxy-py
     - re-assert
+    - time-machine
     - trustme
   source_files:
     - sources/tests
