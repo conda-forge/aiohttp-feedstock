@@ -1,0 +1,41 @@
+From c491ed7f1cde390b3cc6f43b27aac682a3c8f021 Mon Sep 17 00:00:00 2001
+From: "patchback[bot]" <45432694+patchback[bot]@users.noreply.github.com>
+Date: Sun, 19 Nov 2023 14:38:19 +0000
+Subject: [PATCH] [PR #7850/22170b21 backport][3.9] Fix import under PyPy
+ 3.8/3.9 on Windows (#7854)
+
+**This is a backport of PR #7850 as merged into master
+(22170b21064be8fdf75b947d9c2930df7b2518e1).**
+
+Fixes #7848.
+
+Co-authored-by: Jelle Zijlstra <jelle.zijlstra@gmail.com>
+---
+ CHANGES/7848.bugfix  | 1 +
+ aiohttp/cookiejar.py | 3 ++-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+ create mode 100644 CHANGES/7848.bugfix
+
+diff --git a/CHANGES/7848.bugfix b/CHANGES/7848.bugfix
+new file mode 100644
+index 0000000000..13a29e2a22
+--- /dev/null
++++ b/CHANGES/7848.bugfix
+@@ -0,0 +1 @@
++Fix importing aiohttp under PyPy 3.8 and 3.9 on Windows.
+diff --git a/aiohttp/cookiejar.py b/aiohttp/cookiejar.py
+index 15dd982c96..a348f112cb 100644
+--- a/aiohttp/cookiejar.py
++++ b/aiohttp/cookiejar.py
+@@ -62,9 +62,10 @@ class CookieJar(AbstractCookieJar):
+     )
+     try:
+         calendar.timegm(time.gmtime(MAX_TIME))
+-    except OSError:
++    except (OSError, ValueError):
+         # Hit the maximum representable time on Windows
+         # https://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/localtime-localtime32-localtime64
++        # Throws ValueError on PyPy 3.8 and 3.9, OSError elsewhere
+         MAX_TIME = calendar.timegm((3000, 12, 31, 23, 59, 59, -1, -1, -1))
+     except OverflowError:
+         # #4515: datetime.max may not be representable on 32-bit platforms
