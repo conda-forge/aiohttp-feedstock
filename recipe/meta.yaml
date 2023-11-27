@@ -8,8 +8,6 @@ package:
 source:
   - url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
     sha256: 8fc49a87ac269d4529da45871e2ffb6874e87779c3d0e2ccd813c0899221239d
-    patches:
-      - c491ed7f1cde390b3cc6f43b27aac682a3c8f021.patch
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
