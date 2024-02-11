@@ -40,7 +40,7 @@ requirements:
 test:
   requires:
     - pip
-    - pytest
+    - pytest <8
     - pytest-mock
     - brotli
     - brotlicffi
