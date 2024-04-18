@@ -34,6 +34,7 @@ requirements:
     - cython                                 # [build_platform != target_platform]
     - {{ compiler('c') }}
     - make
+    - nodejs
   host:
     - python
     - pip
