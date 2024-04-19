@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/aio-libs/aiohttp/archive/cebe526b9c34dc3a3da9140409db63014bc4cf19.tar.gz
-    sha256: 6028f7f488277a86ec8a636ab980f8bc303e34c58eb63e3acf4b3981bc354031
+  - url: https://github.com/aio-libs/aiohttp/archive/270ae9cf6a9e6159b5e29a950deb6ff7600aebc5.tar.gz
+    sha256: d7070abe547bc93df7c686fadf02f7766bceb08dcb5d31686c51ff06fb67f2f5
   - url: https://github.com/nodejs/llhttp/archive/b0b279fb5a617ab3bc2fc11c5f8bd937aac687c1.tar.gz
     sha256: d3c0908a13e069343781c615116c44cd7c56141c97c489c98feb43101e90a98e
     folder: vendor/llhttp
