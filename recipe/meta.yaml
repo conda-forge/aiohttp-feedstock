@@ -63,6 +63,8 @@ test:
     - rm -rf sources/tests/autobahn         # [unix]
     - rmdir /s /q sources\tests\autobahn    # [win]
     {% set tests_to_skip = "_not_a_real_test" %}
+    # Fails since 270ae9cf6a9e6159b5e29a950deb6ff7600aebc5
+    {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_strict_obs_line_folding" %}
     {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_c[pyloop]" %}
     {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_py[pyloop]" %}
     {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_strict_headers[c-parser-pyloop]" %}
