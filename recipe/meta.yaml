@@ -1,5 +1,5 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "3.9.3" %}
+{% set version = "3.9.5" %}
 
 package:
   name: aiohttp
@@ -7,15 +7,15 @@ package:
 
 source:
   - url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
-    sha256: 90842933e5d1ff760fae6caca4b2b3edba53ba8f4b71e95dacf2818a2aca06f7
+    sha256: edea7d15772ceeb29db4aff55e482d4bcfb6ae160ce144f2682de02f6d693551
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: dd3067e326d6274f4d293920104f1df205b7ad20fcfd23ef3d407965b8fd664b
+    sha256: 4a1776997bd80f85442067440e32222eddc368f262c6550efdb10da7b9ee49ba
     folder: sources
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win and python_impl == "pypy"]
   script: {{ PYTHON }} -m pip install . -vv
 
@@ -63,6 +63,8 @@ test:
     - rm -rf sources/tests/autobahn         # [unix]
     - rmdir /s /q sources\tests\autobahn    # [win]
     {% set tests_to_skip = "_not_a_real_test" %}
+    # Fails since 270ae9cf6a9e6159b5e29a950deb6ff7600aebc5
+    {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_strict_obs_line_folding" %}
     {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_c[pyloop]" %}
     {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_py[pyloop]" %}
     {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_strict_headers[c-parser-pyloop]" %}
