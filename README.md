@@ -233,41 +233,6 @@ Current build status
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/aiohttp-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_python3.9.____cpython" alt="variant">
                 </a>
               </td>
-            </tr><tr>
-              <td>win_64_python3.10.____cpythonpython_implcpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=28&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/aiohttp-feedstock?branchName=main&jobName=win&configuration=win%20win_64_python3.10.____cpythonpython_implcpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_python3.11.____cpythonpython_implcpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=28&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/aiohttp-feedstock?branchName=main&jobName=win&configuration=win%20win_64_python3.11.____cpythonpython_implcpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_python3.12.____cpythonpython_implcpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=28&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/aiohttp-feedstock?branchName=main&jobName=win&configuration=win%20win_64_python3.12.____cpythonpython_implcpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_python3.8.____cpythonpython_implcpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=28&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/aiohttp-feedstock?branchName=main&jobName=win&configuration=win%20win_64_python3.8.____cpythonpython_implcpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>win_64_python3.9.____cpythonpython_implcpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=28&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/aiohttp-feedstock?branchName=main&jobName=win&configuration=win%20win_64_python3.9.____cpythonpython_implcpython" alt="variant">
-                </a>
-              </td>
             </tr>
           </tbody>
         </table>
@@ -286,14 +251,14 @@ Current release info
 Installing aiohttp
 ==================
 
-Installing `aiohttp` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `aiohttp` from the `conda-forge/label/aiohttp_dev` channel can be achieved by adding `conda-forge/label/aiohttp_dev` to your channels with:
 
 ```
-conda config --add channels conda-forge
+conda config --add channels conda-forge/label/aiohttp_dev
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `aiohttp` can be installed with `conda`:
+Once the `conda-forge/label/aiohttp_dev` channel has been enabled, `aiohttp` can be installed with `conda`:
 
 ```
 conda install aiohttp
@@ -308,26 +273,26 @@ mamba install aiohttp
 It is possible to list all of the versions of `aiohttp` available on your platform with `conda`:
 
 ```
-conda search aiohttp --channel conda-forge
+conda search aiohttp --channel conda-forge/label/aiohttp_dev
 ```
 
 or with `mamba`:
 
 ```
-mamba search aiohttp --channel conda-forge
+mamba search aiohttp --channel conda-forge/label/aiohttp_dev
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search aiohttp --channel conda-forge
+mamba repoquery search aiohttp --channel conda-forge/label/aiohttp_dev
 
 # List packages depending on `aiohttp`:
-mamba repoquery whoneeds aiohttp --channel conda-forge
+mamba repoquery whoneeds aiohttp --channel conda-forge/label/aiohttp_dev
 
 # List dependencies of `aiohttp`:
-mamba repoquery depends aiohttp --channel conda-forge
+mamba repoquery depends aiohttp --channel conda-forge/label/aiohttp_dev
 ```
 
 
