@@ -1,5 +1,5 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "3.9.5" %}
+{% set version = "3.10.1" %}
 
 package:
   name: aiohttp
@@ -7,11 +7,11 @@ package:
 
 source:
   - url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
-    sha256: edea7d15772ceeb29db4aff55e482d4bcfb6ae160ce144f2682de02f6d693551
+    sha256: 8b0d058e4e425d3b45e8ec70d49b402f4d6b21041e674798b1f91ba027c73f28
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 4a1776997bd80f85442067440e32222eddc368f262c6550efdb10da7b9ee49ba
+    sha256: 4296578725b3fc7bc924b2ba377ce4e4a62fe30c84b0b471fcc4b70db2755f5b
     folder: sources
 
 build:
@@ -25,11 +25,13 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - cython                                 # [build_platform != target_platform]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
   host:
     - python
     - pip
     - cython
   run:
+    - aiohappyeyeballs >=2.3.0
     - python
     - aiosignal >=1.1.2
     - async-timeout >=4.0,<5.0  # [py<311]
