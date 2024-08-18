@@ -1,5 +1,5 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "3.10.3" %}
+{% set version = "3.10.4" %}
 
 package:
   name: aiohttp
@@ -7,11 +7,11 @@ package:
 
 source:
   - url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
-    sha256: 21650e7032cc2d31fc23d353d7123e771354f2a3d5b05a5647fc30fea214e696
+    sha256: 23a5f97e7dd22e181967fb6cb6c3b11653b0fdbbc4bb7739d9b6052890ccab96
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 3bb8571d61deb48dea6c3aa4f8feca9c77f623579472e1107eaf3e988d7ff893
+    sha256: 3167657ff8d0248aed727370b0469648a9c6c6de1a0cb1f7f689a3c1ddd130b0
     folder: sources
 
 build:
