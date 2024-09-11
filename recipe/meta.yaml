@@ -30,6 +30,7 @@ requirements:
     - python
     - pip
     - cython
+    - setuptools
   run:
     - aiohappyeyeballs >=2.3.0
     - python
@@ -38,7 +39,7 @@ requirements:
     - attrs >=17.3.0
     - frozenlist >=1.1.1
     - multidict >=4.5,<7.0
-    - yarl >=1.0,<2.0
+    - yarl >=1.0,<1.9.5
 
 test:
   requires:
