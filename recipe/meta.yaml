@@ -1,5 +1,5 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "3.10.5" %}
+{% set version = "3.10.6" %}
 
 package:
   name: aiohttp
@@ -7,15 +7,15 @@ package:
 
 source:
   - url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
-    sha256: f071854b47d39591ce9a17981c46790acb30518e2f83dfca8db2dfa091178691
+    sha256: d2578ef941be0c2ba58f6f421a703527d08427237ed45ecb091fed6f83305336
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 576c96fb241d65b169f0d4732b55091ce0dde02bba9f4305ebd69b31f17c5a68
+    sha256: 470ecbbb26ce3fb81aaa7a54f4d367a72f0d66f550af8be20a3e922058fc92a7
     folder: sources
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win and python_impl == "pypy"]
   script: {{ PYTHON }} -m pip install . -vv
 
@@ -39,7 +39,7 @@ requirements:
     - attrs >=17.3.0
     - frozenlist >=1.1.1
     - multidict >=4.5,<7.0
-    - yarl >=1.0,<1.9.5
+    - yarl >=1.12.0,<2.0
 
 test:
   requires:
