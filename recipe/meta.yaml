@@ -32,13 +32,15 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
   host:
-    - python
+    - python         # [not use_noarch]
+    - python >=3.8   # [use_noarch]
     - pip
     - cython
     - setuptools
   run:
     - aiohappyeyeballs >=2.3.0
-    - python
+    - python         # [not use_noarch]
+    - python >=3.8   # [use_noarch]
     - aiosignal >=1.1.2
     - async-timeout >=4.0,<5.0  # [py<311]
     - attrs >=17.3.0
