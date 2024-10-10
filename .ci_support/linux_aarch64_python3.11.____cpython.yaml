@@ -28,9 +28,10 @@ python_impl:
 - cpython
 target_platform:
 - linux-aarch64
+use_noarch:
+- 'false'
 zip_keys:
 - - c_stdlib_version
   - cdt_name
 - - python
   - python_impl
-  - channel_sources

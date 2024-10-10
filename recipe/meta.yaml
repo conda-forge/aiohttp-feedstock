@@ -15,9 +15,14 @@ source:
     folder: sources
 
 build:
-  number: 0
-  skip: true  # [win and python_impl == "pypy"]
-  script: {{ PYTHON }} -m pip install . -vv
+  number: 1
+  skip: true       # [win and python_impl == "pypy"]
+  noarch: python   # [use_noarch]
+  track_features:
+    - aiohttp_no_compile    # [use_noarch]
+  script:
+    - export AIOHTTP_NO_EXTENSIONS=1      # [use_noarch]
+    - {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
