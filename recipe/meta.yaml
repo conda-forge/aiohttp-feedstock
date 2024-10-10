@@ -15,9 +15,14 @@ source:
     folder: sources
 
 build:
-  number: 0
-  skip: true  # [win and python_impl == "pypy"]
-  script: {{ PYTHON }} -m pip install . -vv
+  number: 1
+  skip: true       # [win and python_impl == "pypy"]
+  noarch: python   # [use_noarch]
+  track_features:
+    - aiohttp_no_compile    # [use_noarch]
+  script:
+    - export AIOHTTP_NO_EXTENSIONS=1      # [use_noarch]
+    - {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
@@ -27,13 +32,15 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
   host:
-    - python
+    - python         # [not use_noarch]
+    - python >=3.8   # [use_noarch]
     - pip
     - cython
     - setuptools
   run:
     - aiohappyeyeballs >=2.3.0
-    - python
+    - python         # [not use_noarch]
+    - python >=3.8   # [use_noarch]
     - aiosignal >=1.1.2
     - async-timeout >=4.0,<5.0  # [py<311]
     - attrs >=17.3.0
@@ -62,6 +69,7 @@ test:
     - aiohttp
   commands:
     - pip check
+    - export AIOHTTP_NO_EXTENSIONS=1      # [use_noarch]
     # don't want the docker tests in the autobahn subfolder
     - rm -rf sources/tests/autobahn         # [unix]
     - rmdir /s /q sources\tests\autobahn    # [win]

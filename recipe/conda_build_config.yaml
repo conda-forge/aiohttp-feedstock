@@ -1,0 +1,3 @@
+use_noarch:
+  - true       # [linux64]
+  - false
