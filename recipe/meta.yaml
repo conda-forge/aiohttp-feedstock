@@ -54,6 +54,7 @@ test:
     - pip
     - pytest <8
     - pytest-mock
+    - pytest-codspeed
     - brotli
     - brotlicffi
     - freezegun
