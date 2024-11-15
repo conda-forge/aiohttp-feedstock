@@ -1,5 +1,5 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "3.10.10" %}
+{% set version = "3.11.2" %}
 
 package:
   name: aiohttp
@@ -7,11 +7,11 @@ package:
 
 source:
   - url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
-    sha256: 0631dd7c9f0822cc61c88586ca76d5b5ada26538097d0f1df510b082bad3411a
+    sha256: 68d1f46f9387db3785508f5225d3acbc5825ca13d9c29f2b5cce203d5863eb79
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: ef2387f5af5e3b1f5ce6d95c7f36f28941b988468006a5540f58bb692229b73d
+    sha256: 58221d10c2f15755e9f8c6f550c93f93ce31ecbc2bd6bece585e16da0ff73f72
     folder: sources
 
 build:
@@ -38,6 +38,7 @@ requirements:
     - cython
     - setuptools
   run:
+    - propcache >=0.2.0
     - aiohappyeyeballs >=2.3.0
     - python         # [not use_noarch]
     - python >=3.8   # [use_noarch]
@@ -46,7 +47,7 @@ requirements:
     - attrs >=17.3.0
     - frozenlist >=1.1.1
     - multidict >=4.5,<7.0
-    - yarl >=1.12.0,<2.0
+    - yarl >=1.17.0,<2.0
 
 test:
   requires:
