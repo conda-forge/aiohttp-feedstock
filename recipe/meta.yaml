@@ -15,7 +15,7 @@ source:
     folder: sources
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win and python_impl == "pypy"]
   noarch: python  # [use_noarch]
   track_features:
@@ -32,18 +32,18 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
   host:
-    - python         # [not use_noarch]
-    - python >=3.8   # [use_noarch]
+    - python                   # [not use_noarch]
+    - python {{ python_min }}  # [use_noarch]
     - pip
     - cython
-    - setuptools
+    - setuptools >=46.4.0
   run:
     - propcache >=0.2.0
     - aiohappyeyeballs >=2.3.0
-    - python         # [not use_noarch]
-    - python >=3.8   # [use_noarch]
+    - python                     # [not use_noarch]
+    - python >={{ python_min }}  # [use_noarch]
     - aiosignal >=1.1.2
-    - async-timeout >=4.0,<5.0  # [py<311]
+    - async-timeout >=4.0,<6.0   # [py<311 or use_noarch]
     - attrs >=17.3.0
     - frozenlist >=1.1.1
     - multidict >=4.5,<7.0
@@ -51,6 +51,8 @@ requirements:
 
 test:
   requires:
+    - python                   # [not use_noarch]
+    - python {{ python_min }}  # [use_noarch]
     - pip
     - pytest <8
     - pytest-mock
@@ -126,3 +128,4 @@ extra:
     - sodre
     - xhochy
     - ocefpaf
+    - xylar
