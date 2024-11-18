@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
+  - url: https://pypi.org/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
     sha256: 0631dd7c9f0822cc61c88586ca76d5b5ada26538097d0f1df510b082bad3411a
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
