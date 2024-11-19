@@ -22,6 +22,8 @@ python:
 - 3.12.* *_cpython
 python_impl:
 - cpython
+python_min:
+- '3.9'
 target_platform:
 - linux-64
 use_noarch:
