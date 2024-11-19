@@ -407,4 +407,5 @@ Feedstock Maintainers
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@sodre](https://github.com/sodre/)
 * [@xhochy](https://github.com/xhochy/)
+* [@xylar](https://github.com/xylar/)
 
