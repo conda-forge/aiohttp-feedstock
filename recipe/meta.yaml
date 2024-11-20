@@ -1,23 +1,31 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "3.9.3" %}
+{% set version = "3.9.4" %}
 
 package:
   name: aiohttp
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
-    sha256: 90842933e5d1ff760fae6caca4b2b3edba53ba8f4b71e95dacf2818a2aca06f7
-  # download sources to have tests, which don't get installed;
-  # installing from source is very painful, beware...
-  - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: dd3067e326d6274f4d293920104f1df205b7ad20fcfd23ef3d407965b8fd664b
-    folder: sources
+  - url: https://github.com/aio-libs/aiohttp/archive/270ae9cf6a9e6159b5e29a950deb6ff7600aebc5.tar.gz
+    sha256: d7070abe547bc93df7c686fadf02f7766bceb08dcb5d31686c51ff06fb67f2f5
+  - url: https://github.com/nodejs/llhttp/archive/b0b279fb5a617ab3bc2fc11c5f8bd937aac687c1.tar.gz
+    sha256: d3c0908a13e069343781c615116c44cd7c56141c97c489c98feb43101e90a98e
+    folder: vendor/llhttp
 
 build:
   number: 1
-  skip: true  # [win and python_impl == "pypy"]
-  script: {{ PYTHON }} -m pip install . -vv
+  skip: true  # [win]
+  script:
+    - pushd vendor/llhttp
+    - npm ci
+    - make generate
+    - popd
+    - git init
+    - git submodule update --init --recursive
+    - make aiohttp/_find_header.c
+    - for i in $(find aiohttp -name '*.pyx'); do make ${i/.pyx/.c}; done
+    - rm -r .git
+    - {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
@@ -25,10 +33,13 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - cython                                 # [build_platform != target_platform]
     - {{ compiler('c') }}
+    - make
+    - nodejs
   host:
     - python
     - pip
     - cython
+    - multidict
   run:
     - python
     - aiosignal >=1.1.2
@@ -52,16 +63,16 @@ test:
     - time-machine  # [python_impl == "cpython"]
     - trustme
   source_files:
-    - sources/tests
+    - tests
     # used by a test
-    - sources/README.rst
+    - README.rst
   imports:
     - aiohttp
   commands:
     - pip check
     # don't want the docker tests in the autobahn subfolder
-    - rm -rf sources/tests/autobahn         # [unix]
-    - rmdir /s /q sources\tests\autobahn    # [win]
+    - rm -rf tests/autobahn         # [unix]
+    - rmdir /s /q tests\autobahn    # [win]
     {% set tests_to_skip = "_not_a_real_test" %}
     {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_c[pyloop]" %}
     {% set tests_to_skip = tests_to_skip + " or test_http_response_parser_bad_chunked_strict_py[pyloop]" %}
@@ -89,7 +100,7 @@ test:
     {% set tests_to_skip = tests_to_skip + " or test_static_file_huge[pyloop] " %}          # [python_impl == "pypy" and win]
     {% set tests_to_skip = tests_to_skip + " or test_subapp_reverse_static_url[pyloop]" %}  # [python_impl == "pypy" and win]
     {% set tests_to_skip = tests_to_skip + " or test_unsupported_upgrade[pyloop] " %}       # [python_impl == "pypy" and win]
-    - pytest sources/tests/ -k "not ({{ tests_to_skip }})"
+    - pytest tests/ -k "not ({{ tests_to_skip }})"
 
 about:
   home: https://github.com/aio-libs/aiohttp
