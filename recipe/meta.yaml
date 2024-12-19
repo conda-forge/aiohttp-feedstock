@@ -16,7 +16,6 @@ source:
 
 build:
   number: 0
-  skip: true  # [win]
   noarch: python  # [use_noarch]
   track_features:
     - aiohttp_no_compile    # [use_noarch]
