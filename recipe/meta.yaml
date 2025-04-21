@@ -64,7 +64,7 @@ test:
     - re-assert
     - time-machine  # [python_impl == "cpython"]
     - trustme
-    - uvloop
+    - uvloop  # [unix]
   source_files:
     - sources/tests
     # used by a test
