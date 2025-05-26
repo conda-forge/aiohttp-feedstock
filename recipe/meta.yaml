@@ -57,15 +57,19 @@ test:
     - pytest <8
     - pytest-mock
     - pytest-codspeed
+    - python-blockbuster
     - brotli
     - brotlicffi
     - freezegun
+    - python-isal
     - gunicorn    # [unix]
+    - pkgconfig
     - proxy-py
     - re-assert
     - time-machine  # [python_impl == "cpython"]
     - trustme
     - uvloop  # [unix]
+    - python-zlib-ng
   source_files:
     - sources/tests
     # used by a test
