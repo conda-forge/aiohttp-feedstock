@@ -35,7 +35,7 @@ python_min:
 target_platform:
 - linux-64
 use_noarch:
-- 'false'
+- false
 zip_keys:
 - - python
   - python_impl
