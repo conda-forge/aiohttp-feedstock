@@ -1,5 +1,5 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "3.11.18" %}
+{% set version = "3.12.0" %}
 
 package:
   name: aiohttp
@@ -7,11 +7,11 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/a/aiohttp/aiohttp-{{ version }}.tar.gz
-    sha256: ae856e1138612b7e412db63b7708735cff4d38d0399f6a5435d3dac2669f558a
+    sha256: e3f0a2b4d7fb16c0d584d9b8860f1e46d39f7d93372b25a6f80c10015a7acdab
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: c73c68dbdc830bf7246343182fcc1d4a1fd2dbb633425fb24bdc2bbfc8f7e0c2
+    sha256: e241450693e5b22bad42604486107fda353751cc4e8f7da0c827138b69fd3e8f
     folder: sources
 
 build:
@@ -35,17 +35,18 @@ requirements:
     - python {{ python_min }}  # [use_noarch]
     - pip
     - cython
+    - pkgconfig
     - setuptools >=46.4.0
   run:
-    - propcache >=0.2.0
-    - aiohappyeyeballs >=2.3.0
     - python                     # [not use_noarch]
     - python >={{ python_min }}  # [use_noarch]
+    - aiohappyeyeballs >=2.5.0
     - aiosignal >=1.1.2
     - async-timeout >=4.0,<6.0   # [py<311 or use_noarch]
     - attrs >=17.3.0
     - frozenlist >=1.1.1
     - multidict >=4.5,<7.0
+    - propcache >=0.2.0
     - yarl >=1.17.0,<2.0
 
 test:
@@ -56,15 +57,19 @@ test:
     - pytest <8
     - pytest-mock
     - pytest-codspeed
+    - python-blockbuster
     - brotli
     - brotlicffi
     - freezegun
+    - python-isal
     - gunicorn    # [unix]
+    - pkgconfig
     - proxy-py
     - re-assert
     - time-machine  # [python_impl == "cpython"]
     - trustme
     - uvloop  # [unix]
+    - python-zlib-ng
   source_files:
     - sources/tests
     # used by a test
@@ -103,7 +108,7 @@ about:
   license: MIT AND Apache-2.0
   license_file:
     - LICENSE.txt
-    - vendor/llhttp/LICENSE-MIT
+    - vendor/llhttp/LICENSE
   license_family: Apache
   summary: Async http client/server framework (asyncio)
 
