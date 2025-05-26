@@ -104,7 +104,7 @@ about:
   license: MIT AND Apache-2.0
   license_file:
     - LICENSE.txt
-    - vendor/llhttp/LICENSE-MIT
+    - vendor/llhttp/LICENSE
   license_family: Apache
   summary: Async http client/server framework (asyncio)
 
