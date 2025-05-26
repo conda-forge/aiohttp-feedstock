@@ -35,17 +35,18 @@ requirements:
     - python {{ python_min }}  # [use_noarch]
     - pip
     - cython
+    - pkgconfig
     - setuptools >=46.4.0
   run:
-    - propcache >=0.2.0
-    - aiohappyeyeballs >=2.5.0
     - python                     # [not use_noarch]
     - python >={{ python_min }}  # [use_noarch]
+    - aiohappyeyeballs >=2.5.0
     - aiosignal >=1.1.2
     - async-timeout >=4.0,<6.0   # [py<311 or use_noarch]
     - attrs >=17.3.0
     - frozenlist >=1.1.1
     - multidict >=4.5,<7.0
+    - propcache >=0.2.0
     - yarl >=1.17.0,<2.0
 
 test:
