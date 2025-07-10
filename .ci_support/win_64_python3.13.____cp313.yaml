@@ -1,5 +1,5 @@
 c_compiler:
-- vs2019
+- vs2022
 c_stdlib:
 - vs
 channel_sources:
@@ -20,6 +20,3 @@ target_platform:
 - win-64
 use_noarch:
 - false
-zip_keys:
-- - python
-  - python_impl

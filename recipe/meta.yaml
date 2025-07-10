@@ -1,17 +1,17 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "3.12.13" %}
+{% set version = "3.12.14" %}
 
 package:
   name: aiohttp
   version: {{ version }}
 
 source:
-  - url: https://files.pythonhosted.org/packages/42/6e/ab88e7cb2a4058bed2f7870276454f85a7c56cd6da79349eb314fc7bbcaa/aiohttp-{{ version }}.tar.gz
-    sha256: 47e2da578528264a12e4e3dd8dd72a7289e5f812758fe086473fab037a10fcce
+  - url: https://files.pythonhosted.org/packages/e6/0b/e39ad954107ebf213a2325038a3e7a506be3d98e1435e1f82086eec4cde2/aiohttp-{{ version }}.tar.gz
+    sha256: 6e06e120e34d93100de448fd941522e11dafa78ef1a893c179901b7d66aa29f2
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 18a18c781825ef99024eb76543f05eb8f45d34d6541102a2dd3da10a5414accf
+    sha256: 0ce47e7344f517c5d9d51416324d1f87da1cba82a34da09cc007982e74789fb2
     folder: sources
 
 build:
@@ -41,7 +41,7 @@ requirements:
     - python                     # [not use_noarch]
     - python >={{ python_min }}  # [use_noarch]
     - aiohappyeyeballs >=2.5.0
-    - aiosignal >=1.1.2
+    - aiosignal >=1.4.0
     - async-timeout >=4.0,<6.0   # [py<311 or use_noarch]
     - attrs >=17.3.0
     - frozenlist >=1.1.1
