@@ -36,7 +36,7 @@ requirements:
     - pip
     - cython
     - pkgconfig
-    - setuptools >= 67.0
+    - setuptools >=67.0
   run:
     - python                     # [not use_noarch]
     - python >={{ python_min }}  # [use_noarch]
