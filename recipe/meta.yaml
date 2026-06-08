@@ -38,7 +38,6 @@ requirements:
     - pkgconfig
     - setuptools >=67.0
   run:
-    - typing_extensions >=4.4
     - python                     # [not use_noarch]
     - python >={{ python_min }}  # [use_noarch]
     - aiohappyeyeballs >=2.5.0
@@ -49,6 +48,7 @@ requirements:
     - multidict >=4.5,<7.0
     - propcache >=0.2.0
     - yarl >=1.17.0,<2.0
+    - typing_extensions >=4.4
 
 test:
   requires:
@@ -104,8 +104,6 @@ test:
     {% set tests_to_skip = tests_to_skip + " or (test_imports and test_import_time)" %}                     # [aarch64 or ppc64le]
     {% set tests_to_skip = tests_to_skip + " or test_regex_performance" %}                                  # [aarch64 or ppc64le]
     {% set tests_to_skip = tests_to_skip + " or test_cookie_pattern_performance" %}                         # [aarch64 or ppc64le]
-    # test is failing with 505 instead of 404 for Windows and python 3.9
-    {% set tests_to_skip = tests_to_skip + " or (test_access_symlink_loop[pyloop] )" %}                     # [win and py<=39]
     # failing starting with 3.13.1, likely due to change of behavior in newer yarl version
     {% set tests_to_skip = tests_to_skip + " or test_invalid_idna[pyloop]" %}
     - pytest sources/tests/ -k "not ({{ tests_to_skip }})"
