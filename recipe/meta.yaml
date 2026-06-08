@@ -96,6 +96,8 @@ test:
     {% set tests_to_skip = tests_to_skip + " or test_heartbeat_no_pong[pyloop]" %}
     # test failing with python >=3.11
     {% set tests_to_skip = tests_to_skip + " or test_https_proxy_unsupported_tls_in_tls[pyloop-https]" %}   # [py>=311]
+    # async generator cleanup warning becomes RuntimeError via aiohttp pytest plugin on py3.13+
+    {% set tests_to_skip = tests_to_skip + " or test_read_decode_compressed_exceeds_max_size" %}            # [py>=313]
     # fails to open socket at desired IP/port
     {% set tests_to_skip = tests_to_skip + " or (test_web_server and test_handler_cancellation)" %}         # [linux]
     {% set tests_to_skip = tests_to_skip + " or (test_web_server and test_no_handler_cancellation)" %}      # [linux]
