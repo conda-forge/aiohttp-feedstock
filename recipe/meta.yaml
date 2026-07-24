@@ -1,17 +1,17 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "3.14.2" %}
+{% set version = "3.14.3" %}
 
 package:
   name: aiohttp
   version: {{ version }}
 
 source:
-  - url: https://files.pythonhosted.org/packages/1d/cc/58f26f118d8099f84e009ce560b9148a3f803e63fa8473b57feb67241875/aiohttp-{{ version }}.tar.gz
-    sha256: f96821eb2ae2f12b0dfa799eafbf221f5621a9220b457b4744a269a63a5f3a6c
+  - url: https://files.pythonhosted.org/packages/58/d9/22ce5786ac0c1653ae8b6c23bded02c1686d11f0dbb45b31ce128e0df985/aiohttp-{{ version }}.tar.gz
+    sha256: 9491196535a88924a60afd5b5f434b5b203b6cc616250878dbdb223a8f7844bc
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: 9ddb54fd68a91c6deb0e84347fccadc2939e27b41ae1af168d7d3e97a3718c4e
+    sha256: c9b0300c3e129146c7839f66eae3bf14dda1cc556d6d111519a15bcafdb7a011
     folder: sources
 
 build:
