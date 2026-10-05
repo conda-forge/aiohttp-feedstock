@@ -1,17 +1,17 @@
 {% set tests_to_skip = "_not_a_real_test" %}
-{% set version = "3.14.3" %}
+{% set version = "3.14.4" %}
 
 package:
   name: aiohttp
   version: {{ version }}
 
 source:
-  - url: https://files.pythonhosted.org/packages/58/d9/22ce5786ac0c1653ae8b6c23bded02c1686d11f0dbb45b31ce128e0df985/aiohttp-{{ version }}.tar.gz
-    sha256: 9491196535a88924a60afd5b5f434b5b203b6cc616250878dbdb223a8f7844bc
+  - url: https://files.pythonhosted.org/packages/93/2f/6a91adaa2dc26877d6ed2f54c0370c8910f019db7d77c5c6a194611e93ea/aiohttp-{{ version }}.tar.gz
+    sha256: 831fc5bd39ec2517851e348f613ddb5447a47cf4b71cb09845af7ad7ed45d8f9
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: c9b0300c3e129146c7839f66eae3bf14dda1cc556d6d111519a15bcafdb7a011
+    sha256: 9ec5d815ab97b01597d0b8cfbdad5bdf16ced45b3ee3e0f335e70f2ed0f208c9
     folder: sources
 
 build:
@@ -47,7 +47,7 @@ requirements:
     - frozenlist >=1.1.1
     - multidict >=4.5,<7.0
     - propcache >=0.2.0
-    - yarl >=1.17.0,<2.0
+    - yarl >=1.25.1,<2.0
     - typing_extensions >=4.4
 
 test:
