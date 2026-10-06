@@ -1,0 +1,163 @@
+schema_version: 1
+
+context:
+  version: "3.14.4"
+  # Doesn't reliably run fast enough in CI
+  skip_import_time: " or test_import_time"
+  # Fails since 270ae9cf6a9e6159b5e29a950deb6ff7600aebc5
+  skip_strict_parser: >-
+    or test_http_response_parser_strict_obs_line_folding
+    or test_http_response_parser_bad_chunked_strict_c[pyloop]
+    or test_http_response_parser_bad_chunked_strict_py[pyloop]
+    or test_http_response_parser_strict_headers[c-parser-pyloop]
+    or test_tcp_connector_raise_connector_ssl_error[pyloop]
+  # flaky tests
+  skip_flaky: " or test_heartbeat_no_pong[pyloop]"
+  # test failing with python >=3.11 (python_min)
+  skip_py311: " or test_https_proxy_unsupported_tls_in_tls[pyloop-https]"
+  # async generator cleanup warning becomes RuntimeError via aiohttp pytest
+  # plugin on py3.13+
+  skip_py313: ${{ " or test_read_decode_compressed_exceeds_max_size" if not use_noarch and match(python, ">=3.13") else "" }}
+  # fails to open socket at desired IP/port
+  skip_linux: >-
+    ${{ " or (test_web_server and test_handler_cancellation)"
+    ~ " or (test_web_server and test_no_handler_cancellation)"
+    ~ " or test_run_app_preexisting_inet6_socket[pyloop]" if linux else "" }}
+  # emulation is too slow for expected speed
+  skip_emulated: >-
+    ${{ " or (test_imports and test_import_time)"
+    ~ " or test_regex_performance"
+    ~ " or test_cookie_pattern_performance" if aarch64 or ppc64le else "" }}
+  # failing starting with 3.13.1, likely due to change of behavior in newer
+  # yarl version
+  skip_idna: " or test_invalid_idna[pyloop]"
+  tests_to_skip: >-
+    ${{ "_not_a_real_test" ~ skip_import_time ~ " " ~ skip_strict_parser
+    ~ skip_flaky ~ skip_py311 ~ skip_py313 ~ skip_linux ~ skip_emulated
+    ~ skip_idna }}
+
+package:
+  name: aiohttp
+  version: ${{ version }}
+
+source:
+  - url: https://files.pythonhosted.org/packages/93/2f/6a91adaa2dc26877d6ed2f54c0370c8910f019db7d77c5c6a194611e93ea/aiohttp-${{ version }}.tar.gz
+    sha256: 831fc5bd39ec2517851e348f613ddb5447a47cf4b71cb09845af7ad7ed45d8f9
+  # download sources to have tests, which don't get installed;
+  # installing from source is very painful, beware...
+  - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v${{ version }}.tar.gz
+    sha256: 9ec5d815ab97b01597d0b8cfbdad5bdf16ced45b3ee3e0f335e70f2ed0f208c9
+    target_directory: sources
+
+build:
+  number: 0
+  # Compiled per-platform builds plus one noarch fallback (built on
+  # linux_64, de-prioritized via down_prioritize_variant) per
+  # https://conda-forge.org/blog/2024/10/15/python-noarch-variants/
+  noarch: ${{ "python" if use_noarch }}
+  variant:
+    down_prioritize_variant: ${{ 1 if use_noarch else 0 }}
+  script:
+    - if: use_noarch
+      then: export AIOHTTP_NO_EXTENSIONS=1
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  build:
+    - if: build_platform != target_platform and not use_noarch
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - cython
+    - if: not use_noarch
+      then:
+        - ${{ compiler("c") }}
+        - ${{ stdlib("c") }}
+  host:
+    - if: use_noarch
+      then: python ${{ python_min }}.*
+      else: python
+    - pip
+    - cython
+    - pkgconfig
+    - setuptools >=67.0
+  run:
+    - if: use_noarch
+      then: python >=${{ python_min }}
+      else: python
+    - aiohappyeyeballs >=2.5.0
+    - aiosignal >=1.4.0
+    - if: use_noarch
+      then: async-timeout >=4.0,<6.0
+    - attrs >=17.3.0
+    - frozenlist >=1.1.1
+    - multidict >=4.5,<7.0
+    - propcache >=0.2.0
+    - yarl >=1.25.1,<2.0
+    - typing_extensions >=4.4
+
+tests:
+  - if: use_noarch
+    then:
+      - python:
+          imports:
+            - aiohttp
+          pip_check: true
+          python_version: ${{ python_min }}.*
+    else:
+      - python:
+          imports:
+            - aiohttp
+          pip_check: true
+  - files:
+      source:
+        - sources/tests/
+        # used by a test
+        - sources/README.rst
+    requirements:
+      run:
+        - if: use_noarch
+          then: python ${{ python_min }}.*
+        - pytest <8
+        - pytest-mock
+        - pytest-codspeed
+        - python-blockbuster
+        - brotli
+        - brotlicffi
+        - freezegun
+        - python-isal
+        - if: unix
+          then:
+            - gunicorn
+            - uvloop
+        - pkgconfig
+        - proxy-py
+        - re-assert
+        - time-machine
+        - trustme
+        - python-zlib-ng
+    script:
+      - if: use_noarch
+        then: export AIOHTTP_NO_EXTENSIONS=1
+      # don't want the docker tests in the autobahn subfolder
+      - if: unix
+        then: rm -rf sources/tests/autobahn
+        else: rmdir /s /q sources\tests\autobahn
+      - pytest sources/tests/ -k "not (${{ tests_to_skip }})"
+
+about:
+  homepage: https://github.com/aio-libs/aiohttp
+  license: MIT AND Apache-2.0
+  license_file:
+    - LICENSE.txt
+    - vendor/llhttp/LICENSE
+  summary: Async http client/server framework (asyncio)
+  documentation: http://aiohttp.readthedocs.io/
+  repository: https://github.com/aio-libs/aiohttp
+
+extra:
+  recipe-maintainers:
+    - sodre
+    - xhochy
+    - ocefpaf
+    - xylar
