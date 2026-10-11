@@ -87,8 +87,6 @@ requirements:
       else: python
     - aiohappyeyeballs >=2.5.0
     - aiosignal >=1.4.0
-    - if: use_noarch
-      then: async-timeout >=4.0,<6.0
     - attrs >=17.3.0
     - frozenlist >=1.1.1
     - multidict >=4.5,<8.0
