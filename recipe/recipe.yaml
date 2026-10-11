@@ -1,9 +1,9 @@
 schema_version: 1
 
 context:
-  version: "3.14.4"
+  version: 3.14.5
   # Doesn't reliably run fast enough in CI
-  skip_import_time: " or test_import_time"
+  skip_import_time: ' or test_import_time'
   # Fails since 270ae9cf6a9e6159b5e29a950deb6ff7600aebc5
   skip_strict_parser: >-
     or test_http_response_parser_strict_obs_line_folding
@@ -12,9 +12,9 @@ context:
     or test_http_response_parser_strict_headers[c-parser-pyloop]
     or test_tcp_connector_raise_connector_ssl_error[pyloop]
   # flaky tests
-  skip_flaky: " or test_heartbeat_no_pong[pyloop]"
+  skip_flaky: ' or test_heartbeat_no_pong[pyloop]'
   # test failing with python >=3.11 (python_min)
-  skip_py311: " or test_https_proxy_unsupported_tls_in_tls[pyloop-https]"
+  skip_py311: ' or test_https_proxy_unsupported_tls_in_tls[pyloop-https]'
   # async generator cleanup warning becomes RuntimeError via aiohttp pytest
   # plugin on py3.13+
   skip_py313: ${{ " or test_read_decode_compressed_exceeds_max_size" if not use_noarch and match(python, ">=3.13") else "" }}
@@ -30,7 +30,7 @@ context:
     ~ " or test_cookie_pattern_performance" if aarch64 or ppc64le else "" }}
   # failing starting with 3.13.1, likely due to change of behavior in newer
   # yarl version
-  skip_idna: " or test_invalid_idna[pyloop]"
+  skip_idna: ' or test_invalid_idna[pyloop]'
   tests_to_skip: >-
     ${{ "_not_a_real_test" ~ skip_import_time ~ " " ~ skip_strict_parser
     ~ skip_flaky ~ skip_py311 ~ skip_py313 ~ skip_linux ~ skip_emulated
@@ -41,12 +41,12 @@ package:
   version: ${{ version }}
 
 source:
-  - url: https://files.pythonhosted.org/packages/93/2f/6a91adaa2dc26877d6ed2f54c0370c8910f019db7d77c5c6a194611e93ea/aiohttp-${{ version }}.tar.gz
-    sha256: 831fc5bd39ec2517851e348f613ddb5447a47cf4b71cb09845af7ad7ed45d8f9
+  - url: https://files.pythonhosted.org/packages/6c/4c/bdccd81e9ee225b69c60e7766c9a5b05364f118f4d383713b89a682d772d/aiohttp-${{ version }}.tar.gz
+    sha256: 5558a7f5a05af9ecf744af91e5baefc436f93c9333e656c27ec253f9a6bbe178
   # download sources to have tests, which don't get installed;
   # installing from source is very painful, beware...
   - url: https://github.com/aio-libs/aiohttp/archive/refs/tags/v${{ version }}.tar.gz
-    sha256: 9ec5d815ab97b01597d0b8cfbdad5bdf16ced45b3ee3e0f335e70f2ed0f208c9
+    sha256: d9c48765b6349f2f370d7bc459c44329758b17376837b1899a3cf944d9eb9b82
     target_directory: sources
 
 build:
@@ -64,13 +64,13 @@ build:
 
 requirements:
   build:
-    - if: build_platform != target_platform and not use_noarch
-      then:
-        - python
-        - cross-python_${{ target_platform }}
-        - cython
     - if: not use_noarch
       then:
+        - if: build_platform != target_platform
+          then:
+            - python
+            - cross-python_${{ target_platform }}
+            - cython
         - ${{ compiler("c") }}
         - ${{ stdlib("c") }}
   host:
@@ -87,15 +87,12 @@ requirements:
       else: python
     - aiohappyeyeballs >=2.5.0
     - aiosignal >=1.4.0
-    - if: use_noarch
-      then: async-timeout >=4.0,<6.0
     - attrs >=17.3.0
     - frozenlist >=1.1.1
-    - multidict >=4.5,<7.0
+    - multidict >=4.5,<8.0
     - propcache >=0.2.0
     - yarl >=1.25.1,<2.0
     - typing_extensions >=4.4
-
 tests:
   - if: use_noarch
     then:
