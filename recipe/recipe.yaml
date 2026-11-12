@@ -50,7 +50,7 @@ source:
     target_directory: sources
 
 build:
-  number: 0
+  number: 1
   # Compiled per-platform builds plus one noarch fallback (built on
   # linux_64, de-prioritized via down_prioritize_variant) per
   # https://conda-forge.org/blog/2024/10/15/python-noarch-variants/
@@ -131,7 +131,9 @@ tests:
         - proxy-py
         - re-assert
         - time-machine
-        - trustme
+        # requires cryptography, which isn't build for ppc64le anymore
+        - if: not ppc64le
+          then: trustme
         - python-zlib-ng
     script:
       - if: use_noarch
