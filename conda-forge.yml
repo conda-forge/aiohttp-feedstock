@@ -10,12 +10,12 @@ conda_install_tool: pixi
 github:
   branch_name: main
   tooling_branch_name: main
+linter:
+  skip:
+  - lint_noarch_selectors
 provider:
   linux_aarch64: default
   linux_ppc64le: azure
-  win: azure
   osx_arm64: default
+  win: azure
 test: native_and_emulated
-linter:
-  skip:
-    - lint_noarch_selectors

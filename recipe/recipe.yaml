@@ -50,7 +50,7 @@ source:
     target_directory: sources
 
 build:
-  number: 0
+  number: 1
   # Compiled per-platform builds plus one noarch fallback (built on
   # linux_64, de-prioritized via down_prioritize_variant) per
   # https://conda-forge.org/blog/2024/10/15/python-noarch-variants/
